@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet"
+	href="https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-aria.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-messages.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.js"></script>
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+<style type="text/css">
+table.hovertable {
+	font-family: verdana,arial,sans-serif;
+	font-size:11px;
+	color:#333333;
+	border-width: 1px;
+	border-color: #999999;
+	border-collapse: collapse;
+}
+table.hovertable th {
+	background-color:#c3dde0;
+	border-width: 1px;
+	padding: 8px;
+	border-style: solid;
+	border-color: #a9c6c9;
+}
+table.hovertable tr {
+	background-color:#d4e3e5;
+}
+table.hovertable td {
+	border-width: 1px;
+	padding: 8px;
+	border-style: solid;
+	border-color: #a9c6c9;
+}
+</style>
+
+
+</head>
+
+<body ng-app="firstApplication">
+
+	<script language="javascript">
+		angular.module('firstApplication', [ 'ngMaterial' ]).controller(
+				'sideNavController',
+				[ '$scope', '$mdSidenav', function($scope, $mdSidenav) {
+					
+					
+					
+					var ctrl = this;
+					/* ctrl.personDetail = */ 
+					
+					ctrl.persons = [];
+					
+					ctrl.one = "hello";
+					$scope.openLeftMenu = function() {
+						$mdSidenav('left').toggle();
+						ctrl.one = "xxxx";
+					};
+					/* $scope.detail = function(index){
+						
+						ctrl.persons = [{
+		                       name: 'Bob',
+		                       age: 24,
+		                    },
+		                    {
+		                       name: 'Smith',
+		                       age: 56,
+		                    },
+		                    {
+		                       name: 'Lisa',
+		                       age: 12,
+		                    }];
+						
+					      ctrl.personDetail = ctrl.persons[index];
+					  }; */
+					$scope.showOne = function($scope) {
+						console.log("entered field definition")
+					/* 	ctrl.one = "hai"; */
+						ctrl.persons = [{
+		                       name: 'Bob',
+		                       age: 24,
+		                    },
+		                    {
+		                       name: 'Smith',
+		                       age: 56,
+		                    },
+		                    {
+		                       name: 'Lisa',
+		                       age: 12,
+		                    }];
+					}
+
+				} ]);
+	</script>
+
+
+	<div id="sideNavContainer" ng-controller="sideNavController as ctrl"
+		layout="row" ng-cloak>
+		<md-sidenav md-component-id="left" class="md-sidenav-left">
+		<nav>
+			<md-content> <md-button ng-click="showOne()">Field
+			Definition</md-button> </md-content>
+		</nav>
+		</md-sidenav>
+		<table>
+			<tr>
+				<td><md-content> <md-button	
+						ng-click="openLeftMenu()">View tables</md-button> </md-content></td>
+			</tr>
+			<tr>
+				<td>
+				<table class="hovertable" style="margin-left:200px;">
+				<tr  data-ng-repeat="person in ctrl.persons">
+				<td>{{person.name}}</td>
+				<td>{{person.age}}</td>
+				
+				</tr>
+				</table>
+				<!--  <ul data-ng-repeat="person in ctrl.persons">
+      <li>{{person.name}}</li>
+    </ul> -->
+					<!-- <div style="margin-left: 200px">{{ctrl.persons[0].name}}        {{ctrl.persons[0].age}}</div> -->
+				</td>
+			</tr>
+		</table>
+	</div>
+</body>
+</html>
