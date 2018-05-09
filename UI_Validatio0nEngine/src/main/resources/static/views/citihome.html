@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet"
+	href="https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-aria.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-messages.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.js"></script>
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+<style type="text/css">
+table.hovertable {
+	font-family: verdana,arial,sans-serif;
+	font-size:11px;
+	color:#333333;
+	border-width: 1px;
+	border-color: #999999;
+	border-collapse: collapse;
+}
+table.hovertable th {
+	background-color:#c3dde0;
+	border-width: 1px;
+	padding: 8px;
+	border-style: solid;
+	border-color: #a9c6c9;
+}
+table.hovertable tr {
+	background-color:#d4e3e5;
+}
+table.hovertable td {
+	border-width: 1px;
+	padding: 8px;
+	border-style: solid;
+	border-color: #a9c6c9;
+}
+
+
+
+</style>
+
+
+</head>
+
+<body ng-app="firstApplication">
+
+	<script language="javascript">
+		angular.module('firstApplication', [ 'ngMaterial' ]).controller(
+				'sideNavController',
+				[ '$scope', '$mdSidenav', '$http', function($scope, $mdSidenav, $http) {
+					
+					var ctrl = this;
+					
+					ctrl.home="This tool simplifies CCF data manipulation by exposing data related to CCF tables. Here, we are providing options to view and edit the data in a very convenient way.";
+					ctrl.fields = [];
+					ctrl.groups = [];
+					
+					ctrl.one = "hello";
+					$scope.openLeftMenu = function() {
+						$mdSidenav('left').toggle();
+					};
+					$scope.logout = function() {
+						console.log("logout called...");
+						 $http.get('/home');
+					};
+					$scope.showFields = function($scope) {
+						console.log("entered field definition")
+						ctrl.groups = [];
+						ctrl.home = "";
+						ctrl.fields = [
+						               {
+		                       field_id_seq: 'FIELD ID SEQ',
+		                       field_name: 'FIELD NAME',
+		                       field_desc: 'FIELD DESCRIPTION'
+		                    },{
+		                       field_id_seq: '10001',
+		                       field_name: 'ACCT_NO',
+		                       field_desc: 'Account Number'
+		                    },
+		                    {
+		                    	 field_id_seq: '10002',
+			                       field_name: 'BR_COD',
+			                       field_desc: 'Branch Code'
+		                    },
+		                    {
+		                    	 field_id_seq: '10003',
+			                       field_name: 'BENE_PTY_NAME',
+			                       field_desc: 'Beneficiary Name'
+		                    }];
+					}
+					
+					$scope.showGroups = function($scope) {
+						console.log("entered group definition");
+						ctrl.fields=[];
+						ctrl.home = "";
+						ctrl.groups = [{
+		                       grp_id_seq: 'GROUP ID SEQ',
+		                       pymt_typ: 'PAYMENT TYPE',
+		                       tran_typ: 'TRANSACTION TYPE'
+		                    },{
+		                       grp_id_seq: '20001',
+		                       pymt_typ: 'SEPA',
+		                       tran_typ: 'BR'
+		                    },
+		                    {
+		                    	 grp_id_seq: '20002',
+			                       pymt_typ: 'SP',
+			                       tran_typ: 'UK'
+		                    },
+		                    {
+		                    	 grp_id_seq: '20003',
+			                       pymt_typ: 'SEPA',
+			                       tran_typ: 'CR'
+		                    }];
+					}
+					
+					$scope.showHome = function($scope) {
+						ctrl.fields=[];
+						ctrl.groups=[];
+						ctrl.home = "This tool simplifies CCF data manipulation by exposing data related to CCF tables. Here, we are providing options to view and edit the data in a very convenient way.";
+					}
+					
+					
+
+				} ]);
+	</script>
+
+
+	<div id="sideNavContainer" ng-controller="sideNavController as ctrl"
+		layout="row" ng-cloak>
+		
+ 
+ 
+		<md-sidenav md-component-id="left" class="md-sidenav-left" style="width: 240px;background-color: rgba(0, 115, 150, 0.30196078431372547)">
+		<nav>
+		<table style="margin-top: 160px;">
+		<tr ng-click="showHome()"  width="100%">
+			<td  width="100%"><p style="margin-left: 30px;">Home</p></td>
+			</tr>
+		<tr ng-click="showFields()"  width="100%">
+			<td  width="100%"><p style="margin-left: 30px;">Field Definition</p></td>
+			</tr>
+			<tr ng-click="showGroups()"  width="100%">
+			<td><p style="margin-left: 30px;">Group Definition</p></td>
+			</tr>
+			<tr ng-click="showOne()"  width="100%">
+			<td><p style="margin-left: 30px;">Group Field Map</p></td>
+			</tr>
+			<tr ng-click="showOne()"  width="100%">
+			<td><p style="margin-left: 30px;">Action Group Link</p></td>
+			</tr>
+			<tr ng-click="showOne()"  width="100%">
+			<td><p style="margin-left: 30px;">Branch Action Group Map</p></td>
+			</tr>
+			</table>
+		</nav>
+		</md-sidenav>
+		<table>
+		<tr><td>
+		<div ng-init="myVar = '/images/citi_header_1.png'">
+    
+    <img ng-src="{{myVar}}">
+    
+</div>
+
+		</td></tr>
+			<tr>
+				<td><md-content> <md-button	
+						ng-click="openLeftMenu()" ><img ng-src="/images/menu_button.png" /></md-button> 
+						<span style="color:white;">________________________________________________________________________________________________            </span>
+						 <md-button	
+						ng-click="logout()" ><img ng-src="/images/logout.jpg" /></md-button></md-content></td>
+						
+						
+			</tr>
+			<tr><td><p style="margin-left: 240px;">{{ctrl.home}}</p></td></tr>
+			<tr>
+				<td>
+				<table class="hovertable" style="margin-left:250px;">
+				<tr  data-ng-repeat="field in ctrl.fields">
+				<td>{{field.field_id_seq}}</td>
+				<td>{{field.field_name}}</td>
+				<td>{{field.field_desc}}</td>
+				
+				</tr>
+				
+				<tr  data-ng-repeat="group in ctrl.groups">
+				<td>{{group.grp_id_seq}}</td>
+				<td>{{group.pymt_typ}}</td>
+				<td>{{group.tran_typ}}</td>
+				
+				</tr>
+				</table>
+				
+				</td>
+			</tr>
+		</table>
+	</div>
+</body>
+</html>
